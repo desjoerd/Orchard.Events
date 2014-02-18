@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Orchard.Events")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Stand-alone version of the Orchard Eventbus.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("DeSjoerd")]
 [assembly: AssemblyProduct("Orchard.Events")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
