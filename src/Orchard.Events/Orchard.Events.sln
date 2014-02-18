@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchard.Events", "Orchard.Events\Orchard.Events.csproj", "{67DFE8B8-F466-472C-AB65-5B29512AC1B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C2E878E2-B78A-4C61-BD4A-D38E8D68C351}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchard.Events.Tests", "Orchard.Events.Tests\Orchard.Events.Tests.csproj", "{79255786-8FD4-42A1-9DE5-B241654630CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchard.Events.SampleAppWithEvents", "Orchard.Events.SampleAppWithEvents\Orchard.Events.SampleAppWithEvents.csproj", "{9B186AA4-5AEC-4EE0-A239-C266CE39135D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{0248B19E-6EF0-4BD6-8B71-5D1A2FA23109}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67DFE8B8-F466-472C-AB65-5B29512AC1B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67DFE8B8-F466-472C-AB65-5B29512AC1B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67DFE8B8-F466-472C-AB65-5B29512AC1B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67DFE8B8-F466-472C-AB65-5B29512AC1B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79255786-8FD4-42A1-9DE5-B241654630CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79255786-8FD4-42A1-9DE5-B241654630CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79255786-8FD4-42A1-9DE5-B241654630CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79255786-8FD4-42A1-9DE5-B241654630CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B186AA4-5AEC-4EE0-A239-C266CE39135D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B186AA4-5AEC-4EE0-A239-C266CE39135D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B186AA4-5AEC-4EE0-A239-C266CE39135D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B186AA4-5AEC-4EE0-A239-C266CE39135D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B186AA4-5AEC-4EE0-A239-C266CE39135D} = {0248B19E-6EF0-4BD6-8B71-5D1A2FA23109}
+	EndGlobalSection
+EndGlobal
