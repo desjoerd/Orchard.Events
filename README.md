@@ -1,9 +1,8 @@
 # Orchard.Events
-## A standalone implementation of the Orchard Eventbus.
-
 ```
 PM> Install-Package Orchard.Events 
 ```
+## A standalone implementation of the Orchard Eventbus.
 
 ### Dependencies
 The Eventbus is tied to Autofac and Castle.DynamicProxy
