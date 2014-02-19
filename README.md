@@ -1,4 +1,7 @@
 # Orchard.Events
+```
+PM> Install-Package Orchard.Events 
+```
 ## A standalone implementation of the Orchard Eventbus.
 
 ### Dependencies
