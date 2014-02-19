@@ -72,6 +72,12 @@ namespace Orchard.Events.Tests
             Assert.AreEqual(9, TestEventHandler.CallCount);
         }
 
+        [TestMethod]
+        public void Speed()
+        {
+            TestEventHandlerCalls();
+        }
+
         public void OnEvent(string data)
         {
             _onEventCalledTimes++;
