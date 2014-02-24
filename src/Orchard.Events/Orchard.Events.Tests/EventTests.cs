@@ -37,6 +37,15 @@ namespace Orchard.Events.Tests
                 .SingleInstance();
 
             containerBuilder
+                .RegisterType<StringGenericEventHandler>()
+                .AsEventHandler()
+                .InstancePerDependency();
+
+            containerBuilder.RegisterType<IntGenericEventHandler>()
+                .AsEventHandler()
+                .SingleInstance();
+
+            containerBuilder
                 .RegisterType(typeof(TestEventHandler))
                 .AsEventHandler(typeof(TestEventHandler));
 
@@ -76,6 +85,25 @@ namespace Orchard.Events.Tests
         public void Speed()
         {
             TestEventHandlerCalls();
+        }
+
+        [TestMethod]
+        public void TestGeneric()
+        {
+            StringGenericEventHandler.CallCount = 0;
+            IntGenericEventHandler.CallCount = 0;
+
+            var stringGenericHandlerProxy = _container.Resolve<IGenericEventHandler<string>>();
+            stringGenericHandlerProxy.TestGeneric();
+
+            Assert.AreEqual(1, StringGenericEventHandler.CallCount);
+            Assert.AreEqual(0, IntGenericEventHandler.CallCount);
+
+            var intGenericHandlerProxy = _container.Resolve<IGenericEventHandler<int>>();
+            intGenericHandlerProxy.TestGeneric();
+
+            Assert.AreEqual(1, StringGenericEventHandler.CallCount);
+            Assert.AreEqual(1, IntGenericEventHandler.CallCount);
         }
 
         public void OnEvent(string data)

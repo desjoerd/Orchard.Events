@@ -22,7 +22,7 @@ namespace Orchard.Events
 
         public void Intercept(IInvocation invocation)
         {
-            var interfaceName = invocation.Method.DeclaringType.Name;
+            var interfaceName = invocation.Method.DeclaringType.FullName;
             var methodName = invocation.Method.Name;
 
             var data = invocation.Method.GetParameters()

@@ -28,13 +28,13 @@ namespace Orchard.Events
 
         private IEnumerable<object> NotifyHandlers(string messageName, IDictionary<string, object> eventData)
         {
-            string[] parameters = messageName.Split('.');
-            if (parameters.Length != 2)
+            int lastDotIndex = messageName.LastIndexOf('.');
+            if (lastDotIndex == -1)
             {
                 throw new ArgumentException(string.Format("{0} is not formatted correctly", messageName), "messageName");
             }
-            string interfaceName = parameters[0];
-            string methodName = parameters[1];
+            string interfaceName = messageName.Substring(0, lastDotIndex);
+            string methodName = messageName.Substring(lastDotIndex + 1, messageName.Length - lastDotIndex - 1);
 
             var eventHandlers = _eventHandlers[interfaceName];
             foreach (var eventHandler in eventHandlers)
@@ -68,7 +68,7 @@ namespace Orchard.Events
 
         private static bool TryInvoke(IEventHandler eventHandler, string messageName, string interfaceName, string methodName, IDictionary<string, object> arguments, out IEnumerable returnValue)
         {
-            var matchingInterface = eventHandler.GetType().GetInterface(interfaceName);
+            var matchingInterface = eventHandler.GetType().GetInterfaces().Where(interfaceType => interfaceType.FullName == interfaceName).FirstOrDefault();
             return TryInvokeMethod(eventHandler, matchingInterface, messageName, interfaceName, methodName, arguments, out returnValue);
         }
 

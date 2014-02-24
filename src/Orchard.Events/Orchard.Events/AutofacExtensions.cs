@@ -42,7 +42,7 @@ namespace Orchard.Events
 
             foreach (var t in interfaces)
             {
-                builder.Named<IEventHandler>(t.Name);
+                builder.Named<IEventHandler>(t.FullName);
             }
         }
     }
