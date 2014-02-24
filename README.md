@@ -4,6 +4,9 @@ PM> Install-Package Orchard.Events
 ```
 ## A standalone implementation of the Orchard Eventbus.
 
+### Credits for the Orchard Team
+First, I want to give all the credits to the Orchard Team for creating this beatifull piece of code. Most of the code is an exact copy of the code found in Orchard. There are only a few modifications and additions to use the Event bus without Orchard.
+
 ### Dependencies
 The Eventbus is tied to Autofac and Castle.DynamicProxy
 
