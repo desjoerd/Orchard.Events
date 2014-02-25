@@ -58,6 +58,11 @@
     <Compile Include="IGenericEventHandler.cs" />
     <Compile Include="IntGenericEventHandler.cs" />
     <Compile Include="ITestEventHandler.cs" />
+    <Compile Include="MultipleEventHandlers\IIndexingGenericEventHandler.cs" />
+    <Compile Include="MultipleEventHandlers\ILogEventHandler.cs" />
+    <Compile Include="MultipleEventHandlers\MultipleEventHandlersTest.cs" />
+    <Compile Include="MultipleEventHandlers\Status.cs" />
+    <Compile Include="MultipleEventHandlers\MultipleImplementationEventHandler.cs" />
     <Compile Include="NamespaceA\IGenericRepositoryHandler.cs" />
     <Compile Include="NamespaceA\IOrderEventHandler.cs" />
     <Compile Include="NamespaceB\IGenericRepositoryHandler.cs" />

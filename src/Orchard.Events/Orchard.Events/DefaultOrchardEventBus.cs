@@ -69,9 +69,36 @@ namespace Orchard.Events
         private static bool TryInvoke(IEventHandler eventHandler, string messageName, string interfaceKey, string methodName, IDictionary<string, object> arguments, out IEnumerable returnValue)
         {
             var interfaceName = EventsHelper.GetInterfaceNameFromKey(interfaceKey);
-            var matchingInterface = eventHandler.GetType().GetInterface(interfaceName);
+            if (!EventsHelper.IsGenericInterfaceKey(interfaceKey))
+            {
+                var matchingInterface = eventHandler.GetType().GetInterface(interfaceName);
 
-            return TryInvokeMethod(eventHandler, matchingInterface, messageName, interfaceName, methodName, arguments, out returnValue);
+                return TryInvokeMethod(eventHandler, matchingInterface, messageName, interfaceName, methodName, arguments, out returnValue);
+            }
+            else
+            {
+                var genericParams = EventsHelper.GetGenericParamNames(interfaceKey);
+
+                var matchingInterface = eventHandler
+                    .GetType()
+                    .GetInterfaces()
+                    .Where(possibleMatch => possibleMatch.Name == interfaceName && genericParams.Length == possibleMatch.GenericTypeArguments.Length)
+                    .Where(possibleMatch =>
+                    {
+                        var isMatch = true;
+                        for (int i = 0; i < genericParams.Length; i++)
+                        {
+                            if (possibleMatch.GenericTypeArguments[i].Name != genericParams[i])
+                            {
+                                isMatch = false;
+                                break;
+                            }
+                        }
+                        return isMatch;
+                    }).FirstOrDefault();
+
+                return TryInvokeMethod(eventHandler, matchingInterface, messageName, interfaceName, methodName, arguments, out returnValue);
+            }
         }
 
         private static bool TryInvokeMethod(IEventHandler eventHandler, Type interfaceType, string messageName, string interfaceName, string methodName, IDictionary<string, object> arguments, out IEnumerable returnValue)
