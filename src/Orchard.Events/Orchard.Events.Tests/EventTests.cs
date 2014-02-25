@@ -54,6 +54,11 @@ namespace Orchard.Events.Tests
                 .AsEventHandler()
                 .SingleInstance();
 
+            containerBuilder
+                .RegisterType<NamespaceB.StatusGenericRepositoryHandler>()
+                .AsEventHandler()
+                .SingleInstance();
+
             containerBuilder.RegisterModule<EventsModule>();
 
             this._container = containerBuilder.Build();
@@ -120,6 +125,21 @@ namespace Orchard.Events.Tests
             orderEventHandlerProxyFromA.OrderProcessed(10);
 
             Assert.AreEqual(1, NamespaceB.TestOrderEventHandler.CallCount);
+        }
+
+        [TestMethod]
+        public void TestGenericDifferentNamespaces()
+        {
+            NamespaceB.StatusGenericRepositoryHandler.CallCount = 0;
+            NamespaceB.StatusGenericRepositoryHandler.AddedEntity = null;
+
+            var statusGenericRepositoryHandlerProxyFromA = _container.Resolve<NamespaceA.IGenericRepositoryHandler<NamespaceB.StatusEntity>>();
+
+            var expectedStatusEntity = new NamespaceB.StatusEntity() { Status = "Expected" };
+            statusGenericRepositoryHandlerProxyFromA.EntityAdded(expectedStatusEntity);
+
+            Assert.AreEqual(1, NamespaceB.StatusGenericRepositoryHandler.CallCount);
+            Assert.AreEqual(expectedStatusEntity.Status, NamespaceB.StatusGenericRepositoryHandler.AddedEntity.Status);
         }
 
         public void OnEvent(string data)
