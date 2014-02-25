@@ -58,6 +58,9 @@
     <Compile Include="IGenericEventHandler.cs" />
     <Compile Include="IntGenericEventHandler.cs" />
     <Compile Include="ITestEventHandler.cs" />
+    <Compile Include="NamespaceA\IOrderEventHandler.cs" />
+    <Compile Include="NamespaceB\IOrderEventHandler.cs" />
+    <Compile Include="NamespaceB\TestOrderEventHandler.cs" />
     <Compile Include="StringGenericEventHandler.cs" />
     <Compile Include="TestEventHandler.cs" />
     <Compile Include="EventTests.cs" />

@@ -53,6 +53,7 @@
     <Compile Include="AutofacExtensions.cs" />
     <Compile Include="DefaultOrchardEventBus.cs" />
     <Compile Include="DelegateHelper.cs" />
+    <Compile Include="EventsHelper.cs" />
     <Compile Include="EventsInterceptor.cs" />
     <Compile Include="EventsModule.cs" />
     <Compile Include="EventsRegistrationSource.cs" />

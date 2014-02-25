@@ -28,19 +28,19 @@ namespace Orchard.Events
 
         private IEnumerable<object> NotifyHandlers(string messageName, IDictionary<string, object> eventData)
         {
-            int lastDotIndex = messageName.LastIndexOf('.');
-            if (lastDotIndex == -1)
+            string[] parameters = messageName.Split('.');
+            if (parameters.Length != 2)
             {
                 throw new ArgumentException(string.Format("{0} is not formatted correctly", messageName), "messageName");
             }
-            string interfaceName = messageName.Substring(0, lastDotIndex);
-            string methodName = messageName.Substring(lastDotIndex + 1, messageName.Length - lastDotIndex - 1);
+            string interfaceKey = parameters[0];
+            string methodName = parameters[1];
 
-            var eventHandlers = _eventHandlers[interfaceName];
+            var eventHandlers = _eventHandlers[interfaceKey];
             foreach (var eventHandler in eventHandlers)
             {
                 IEnumerable returnValue;
-                if (TryNotifyHandler(eventHandler, messageName, interfaceName, methodName, eventData, out returnValue))
+                if (TryNotifyHandler(eventHandler, messageName, interfaceKey, methodName, eventData, out returnValue))
                 {
                     if (returnValue != null)
                     {
@@ -53,11 +53,11 @@ namespace Orchard.Events
             }
         }
 
-        private bool TryNotifyHandler(IEventHandler eventHandler, string messageName, string interfaceName, string methodName, IDictionary<string, object> eventData, out IEnumerable returnValue)
+        private bool TryNotifyHandler(IEventHandler eventHandler, string messageName, string interfaceKey, string methodName, IDictionary<string, object> eventData, out IEnumerable returnValue)
         {
             try
             {
-                return TryInvoke(eventHandler, messageName, interfaceName, methodName, eventData, out returnValue);
+                return TryInvoke(eventHandler, messageName, interfaceKey, methodName, eventData, out returnValue);
             }
             catch (Exception)
             {
@@ -66,9 +66,11 @@ namespace Orchard.Events
             }
         }
 
-        private static bool TryInvoke(IEventHandler eventHandler, string messageName, string interfaceName, string methodName, IDictionary<string, object> arguments, out IEnumerable returnValue)
+        private static bool TryInvoke(IEventHandler eventHandler, string messageName, string interfaceKey, string methodName, IDictionary<string, object> arguments, out IEnumerable returnValue)
         {
-            var matchingInterface = eventHandler.GetType().GetInterfaces().Where(interfaceType => interfaceType.FullName == interfaceName).FirstOrDefault();
+            var interfaceName = EventsHelper.GetInterfaceNameFromKey(interfaceKey);
+            var matchingInterface = eventHandler.GetType().GetInterface(interfaceName);
+
             return TryInvokeMethod(eventHandler, matchingInterface, messageName, interfaceName, methodName, arguments, out returnValue);
         }
 

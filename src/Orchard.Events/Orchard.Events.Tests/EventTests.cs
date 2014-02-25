@@ -49,6 +49,11 @@ namespace Orchard.Events.Tests
                 .RegisterType(typeof(TestEventHandler))
                 .AsEventHandler(typeof(TestEventHandler));
 
+            containerBuilder
+                .RegisterType<NamespaceB.TestOrderEventHandler>()
+                .AsEventHandler()
+                .SingleInstance();
+
             containerBuilder.RegisterModule<EventsModule>();
 
             this._container = containerBuilder.Build();
@@ -104,6 +109,17 @@ namespace Orchard.Events.Tests
 
             Assert.AreEqual(1, StringGenericEventHandler.CallCount);
             Assert.AreEqual(1, IntGenericEventHandler.CallCount);
+        }
+
+        [TestMethod]
+        public void TestDifferentNamespaces()
+        {
+            NamespaceB.TestOrderEventHandler.CallCount = 0;
+
+            var orderEventHandlerProxyFromA = _container.Resolve<NamespaceA.IOrderEventHandler>();
+            orderEventHandlerProxyFromA.OrderProcessed(10);
+
+            Assert.AreEqual(1, NamespaceB.TestOrderEventHandler.CallCount);
         }
 
         public void OnEvent(string data)

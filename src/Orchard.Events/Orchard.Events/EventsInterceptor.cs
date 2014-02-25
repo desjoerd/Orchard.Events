@@ -22,14 +22,14 @@ namespace Orchard.Events
 
         public void Intercept(IInvocation invocation)
         {
-            var interfaceName = invocation.Method.DeclaringType.FullName;
+            var interfaceKey = EventsHelper.GetInterfaceKey(invocation.Method.DeclaringType);
             var methodName = invocation.Method.Name;
 
             var data = invocation.Method.GetParameters()
                 .Select((parameter, index) => new { parameter.Name, Value = invocation.Arguments[index] })
                 .ToDictionary(kv => kv.Name, kv => kv.Value);
 
-            var results = _eventBus.Notify(interfaceName + "." + methodName, data);
+            var results = _eventBus.Notify(interfaceKey + "." + methodName, data);
 
             invocation.ReturnValue = Adjust(results, invocation.Method.ReturnType);
         }
