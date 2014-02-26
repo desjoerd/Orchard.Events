@@ -126,3 +126,34 @@ Repository: 200
 Log: 200
 Log: 200
 ```
+
+### Addition: Generics
+It is possible to use Generics with EventHandlers. This is an addition of the Orchard Eventbus. Basicly make your EventHandler Generic and it will work:
+
+Interface:
+```csharp
+public interface IGenericEventHandler<T> : EventHandler
+{ }
+```
+
+Listener:
+```csharp
+public class UserGenericEventHandler : IGenericEventHandler<User>
+{ }
+```
+
+Listener registration:
+```csharp
+containerBuilder.RegisterType<UserGenericEventHandler>()
+    .AsEventHandler();
+```
+
+Resolve the eventHandler:
+```csharp
+var handler = container.Resolve<IGenericEventHandler<User>>();
+```
+
+It is also possible to implement multiple generic and non generic eventHandlers:
+```csharp
+public class MultipleGenericEventHandler : IGenericEventHandler<User>, IGenericEventHandler<Product>
+```
